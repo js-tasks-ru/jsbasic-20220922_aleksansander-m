@@ -1,3 +1,5 @@
+const { RuleTester } = require("eslint");
+
 /**
  * Эту функцию трогать не нужно
  */
@@ -10,7 +12,10 @@ function print(text) {
  * чтобы функция sayHello работала корректно
  */
 function isValid(name) {
-  // ваш код...
+  //return name != undefined && length.name >= 4 && name.indexOf(' ') == -1 && true;
+  if ( name === null || name.length < 4 || name.indexOf(' ') != -1 ) {
+    return false
+  }else return true
 }
 
 function sayHello() {
