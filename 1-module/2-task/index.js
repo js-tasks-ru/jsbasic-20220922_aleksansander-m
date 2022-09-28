@@ -1,5 +1,3 @@
-const { RuleTester } = require("eslint");
-
 /**
  * Эту функцию трогать не нужно
  */
