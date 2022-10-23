@@ -33,7 +33,7 @@ export default class ProductCard {
     });
 
     btn1.addEventListener('product-add', event => {
-      console.log('product-add', event.detail);
+      
     });
 
 
