@@ -7,34 +7,71 @@ export default class Carousel {
 
     let elem = createElement(makeElemenText(slides));
     this.elem = elem;
+   
+    elem.dataset.stepN = 0;
 
-    elem.dataset.stepN = 1;
-
-
+    let arrowRight = elem.querySelector('.carousel__arrow_right');
+    let arrowLeft  = elem.querySelector('.carousel__arrow_left');
+  
+    elem.addEventListener('click', swichImage);
     
+    setArowsVisibility();
 
 
+    function swichImage(event) {
 
+      let stepN = Number(elem.dataset.stepN);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      let carouselInner = elem.querySelector('.carousel__inner');
     
+      const offsetWidth = carouselInner.offsetWidth;
+
+      let arrow = event.target.closest('div');
+
+      let direction = 0;
+      if ( arrow.className.endsWith('right') ) {
+        direction = 1;  
+      } else if ( arrow.className.endsWith('left') ){
+        direction = -1;   
+      } else {
+        return;
+      }
+    
+    
+      stepN = stepN + direction;
+    
+      let offsetWidthPx = String ( -stepN * offsetWidth) + 'px';
+    
+      carouselInner.style.transform = `translateX(${offsetWidthPx})`;
+    
+      elem.dataset.stepN = stepN;
+
+      setArowsVisibility();
+    
+    }
+
+
+    function setArowsVisibility() {
+
+      let arrowRight = elem.querySelector('.carousel__arrow_right');
+      let arrowLeft  = elem.querySelector('.carousel__arrow_left');
+      let stepN = elem.dataset.stepN;
+      let lastIndex = slides.length - 1;
+      
+      if (stepN <=0) {
+        arrowLeft.style.display = 'none';
+      }else {
+        arrowLeft.style.display = '';
+      };
+    
+      if (stepN >= lastIndex) {
+        arrowRight.style.display = 'none';
+      } else{
+        arrowRight.style.display = '';  
+      }
+    }
+
+
     let plusBtns = elem.querySelectorAll('.carousel__button');
 
     for (const btn of plusBtns) {
@@ -50,57 +87,7 @@ export default class Carousel {
     }
 
     elem.addEventListener('product-add', event =>{
-      console.log(event.detail);
     })
-    
-  
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function makeElemenText(slides) {
     
@@ -143,9 +130,7 @@ export default class Carousel {
       
       return sText;
 
-
     }
-
 
   }
 }
